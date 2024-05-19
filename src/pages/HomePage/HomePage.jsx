@@ -14,7 +14,6 @@ const HomePage = () => {
         console.error(error);
       }
     );
-    console.log("HomePage rendered");
   }, []);
 
   const moviesList = useMemo(() => {

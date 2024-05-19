@@ -4,6 +4,7 @@ import "modern-normalize";
 import Navigation from "./components/Navigation/Navigation";
 import { Routes, Route } from "react-router-dom";
 import { lazy, Suspense } from "react";
+import { Toaster } from "react-hot-toast";
 
 const HomePage = lazy(() => import("./pages/HomePage/HomePage"));
 const MoviesPage = lazy(() => import("./pages/MoviesPage/MoviesPage"));
@@ -20,6 +21,7 @@ const MovieReviews = lazy(() =>
 function App() {
   return (
     <>
+      <Toaster position="top-right" />
       <Navigation />
       <div className="mainContent">
         <Suspense fallback={<h1>Loading...</h1>}>

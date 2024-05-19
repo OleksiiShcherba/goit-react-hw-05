@@ -1,0 +1,35 @@
+.movieDetails {
+    display: flex;
+    flex-direction: row;
+}
+
+.moviePoster {
+    margin-right: 20px;
+    max-height: 400px;
+}
+
+.briefInformation {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.navigationItem {
+    color: black;
+    text-decoration: none;
+}
+
+.navigationItem:hover {
+    text-decoration: underline;
+}
+
+.navigationItemActive {
+    color: red;
+}
+
+.additionalInfo{
+    padding: 20px 0;
+    margin: 10px 0;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+}
