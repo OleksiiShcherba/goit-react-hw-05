@@ -6,14 +6,9 @@ const HomePage = () => {
   const [trendingMovies, setTrendingMovies] = useState([]);
 
   useEffect(() => {
-    getTrendingMovies(
-      (data) => {
-        setTrendingMovies(data.results);
-      },
-      (error) => {
-        console.error(error);
-      }
-    );
+    getTrendingMovies((data) => {
+      setTrendingMovies(data.results);
+    });
   }, []);
 
   const moviesList = useMemo(() => {

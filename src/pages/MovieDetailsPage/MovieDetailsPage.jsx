@@ -1,24 +1,16 @@
 import { useEffect, useState } from "react";
-import { useParams, Outlet } from "react-router-dom";
+import { useParams, Outlet, Link, useLocation } from "react-router-dom";
 import { getMovieDetails } from "../../services/TMDBService";
-import { toast } from "react-hot-toast";
-import { NavLink } from "react-router-dom";
-import clsx from "clsx";
 import css from "./MovieDetailsPage.module.css";
-
-const buildLinkClass = ({ isActive }) => {
-  return clsx(css.navigationItem, isActive && css.navigationItemActive);
-};
 
 const MovieDetailsPage = () => {
   const { movieId } = useParams();
   const [movie, setMovie] = useState({});
+  const location = useLocation();
 
   useEffect(() => {
     if (movieId) {
-      getMovieDetails(movieId, setMovie, (error) => {
-        toast.error(error);
-      });
+      getMovieDetails(movieId, setMovie);
     }
   }, [movieId]);
 
@@ -32,6 +24,13 @@ const MovieDetailsPage = () => {
 
   return (
     <>
+      <Link
+        to={location?.state ?? "/"}
+        state={location.pathname + location.search}
+        className={css.backButton}
+      >
+        Go Back
+      </Link>
       <div className={css.movieDetails}>
         <img
           src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
@@ -59,17 +58,17 @@ const MovieDetailsPage = () => {
         <h3>Additional information</h3>
         <ul>
           <li>
-            <NavLink to={`/movies/${movieId}/cast`} className={buildLinkClass}>
+            <Link to={`/movies/${movieId}/cast`} state={location?.state ?? "/"}>
               Cast
-            </NavLink>
+            </Link>
           </li>
           <li>
-            <NavLink
+            <Link
               to={`/movies/${movieId}/reviews`}
-              className={buildLinkClass}
+              state={location?.state ?? "/"}
             >
               Reviews
-            </NavLink>
+            </Link>
           </li>
         </ul>
       </div>
