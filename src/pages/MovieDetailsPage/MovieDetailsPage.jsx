@@ -1,5 +1,11 @@
 import { useEffect, useState } from "react";
-import { useParams, Outlet, Link, useLocation } from "react-router-dom";
+import {
+  useParams,
+  Outlet,
+  Link,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import { getMovieDetails } from "../../services/TMDBService";
 import css from "./MovieDetailsPage.module.css";
 
@@ -7,12 +13,19 @@ const MovieDetailsPage = () => {
   const { movieId } = useParams();
   const [movie, setMovie] = useState({});
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (movieId) {
       getMovieDetails(movieId, setMovie);
     }
   }, [movieId]);
+
+  const navigateBack = () => {
+    navigate(location?.state ?? "/", {
+      state: location.pathname + location.search,
+    });
+  };
 
   if (Object.keys(movie).length == 0) {
     return (
@@ -24,13 +37,9 @@ const MovieDetailsPage = () => {
 
   return (
     <>
-      <Link
-        to={location?.state ?? "/"}
-        state={location.pathname + location.search}
-        className={css.backButton}
-      >
-        Go Back
-      </Link>
+      <button onClick={navigateBack} className={css.backButton}>
+        ◄ Go Back
+      </button>
       <div className={css.movieDetails}>
         <img
           src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
